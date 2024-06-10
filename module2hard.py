@@ -8,7 +8,7 @@ def get_password(rand):
             if rand % (i + j) == 0:
                 list_.append(str(i))
                 list_.append(str(j))
-    password = "".join(list_)
+    password = int("".join(list_))
     print(password)
 
 
