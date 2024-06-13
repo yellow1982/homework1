@@ -1,7 +1,10 @@
+import time
+
+
 class User:
     def __init__(self):
-        self.nickname = str("")
-        self.password = hash("")
+        self.nickname = ""
+        self.password = ""
         self.age = int()
 
     def __str__(self):
@@ -47,7 +50,7 @@ class UrTube:
             if login == str(usr) and hash(password) == hash(usr.password):
                 self.current_user = usr
                 break
-            elif login == usr and hash(password) != hash(usr.password):
+            elif login == str(usr) and hash(password) != hash(usr.password):
                 print("Не верный пароль!!!")
                 break
             else:
@@ -91,6 +94,7 @@ class UrTube:
                         while vid.time_now < vid.duration:
                             print(vid.time_now + 1, end=" ")
                             vid.time_now += 1
+                            time.sleep(1)
                         print("Конец видео")
 
     def log_out(self):
@@ -122,4 +126,3 @@ if __name__ == "__main__":
     #
     ## Попытка воспроизведения несуществующего видео
     ur.watch_video('Лучший язык программирования 2024 года!')
- 
