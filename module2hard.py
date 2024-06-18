@@ -9,7 +9,7 @@ def get_password(rand):
                 list_.append(str(i))
                 list_.append(str(j))
     password = int("".join(list_))
-    print(password)
+    print(n, "-", password)
 
 
 n = random.randrange(3, 21)
