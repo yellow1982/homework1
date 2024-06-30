@@ -1,36 +1,19 @@
 def calculate_structure_sum(data):
     sum_ = 0
-    if len(data) == 0:
-        return sum_
-    first = data[0]
-    if len(data) == 1:
-        if isinstance(first, int):
-            sum_ += first
-        elif isinstance(first, str):
-            sum_ += len(first)
-        elif isinstance(first, tuple):
-            sum_ += calculate_structure_sum(list(first))
-        elif isinstance(first, list):
-            sum_ += calculate_structure_sum(first)
-        elif isinstance(first, dict):
-            sum_ += calculate_structure_sum(list(first.items()))
-        elif isinstance(first, set):
-            sum_ += calculate_structure_sum(list(first))
-        return sum_
-    elif len(data) > 1:
-        if isinstance(first, int):
-            sum_ += first + calculate_structure_sum(data[1:])
-        elif isinstance(first, str):
-            sum_ += len(first) + calculate_structure_sum(data[1:])
-        elif isinstance(first, tuple):
-            sum_ += calculate_structure_sum(list(first)) + calculate_structure_sum(data[1:])
-        elif isinstance(first, list):
-            sum_ += calculate_structure_sum(first) + calculate_structure_sum(data[1:])
-        elif isinstance(first, dict):
-            sum_ += calculate_structure_sum(list(first.items())) + calculate_structure_sum(data[1:])
-        elif isinstance(first, set):
-            sum_ += calculate_structure_sum(list(first)) + calculate_structure_sum(data[1:])
+    if isinstance(data, (int, float)):
+        sum_ += data
+    elif isinstance(data, str):
+        sum_ += len(data)
+    elif isinstance(data, (list, set, tuple)):
+        for i in data:
+            sum_ += calculate_structure_sum(i)
+    elif isinstance(data, dict):
+        for key, value in data.items():
+            sum_ += calculate_structure_sum(key)
+            sum_ += calculate_structure_sum(value)
+
     return sum_
+
 
 
 data_structure = [
