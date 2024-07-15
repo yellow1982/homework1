@@ -14,10 +14,9 @@ def string_info(str_):
 def is_contains(str_, list_to_search):
     count_calls()
     for i in list_to_search:
-        if i.lower() is str_.lower():
+        if i.casefold() == str_.casefold():
             return True
-        else:
-            return False
+    return False
 
 
 print(string_info('Capybara'))
