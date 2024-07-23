@@ -19,13 +19,30 @@ class Shop:
         return f.read()
 
     def add(self, *products):
+        prod_in_list = True
         for i in products:
-            if i.name in self.get_products():
-                print(f"Продукт {i.name} уже есть в магазине")
-            else:
+            print("i.name = ", i.name)
+            if not self.get_products().splitlines():
+                print("пустой список, делаем первую запись", i)
                 f = open(self.__file_name, 'a')
                 f.write(f'{i}\n')
+                print("Добавился в список", self.get_products().splitlines())
                 f.close()
+                continue
+            for j in self.get_products().splitlines():
+                print("j = ", j, "i.name = ", i.name)
+                if j.startswith(i.name):
+                    prod_in_list = True
+                    print(f"Продукт {i.name} уже есть в магазине")
+                    break
+                else:
+                    prod_in_list = False
+            if not prod_in_list:
+                f = open(self.__file_name, 'a')
+                f.write(f'{i}\n')
+                print("Добавился в список", self.get_products().splitlines())
+                f.close()
+                break
 
 
 s1 = Shop()
