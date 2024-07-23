@@ -28,7 +28,6 @@ class Shop:
                 f.write(f'{i}\n')
                 print("Добавился в список", self.get_products().splitlines())
                 f.close()
-                continue
             for j in self.get_products().splitlines():
                 print("j = ", j, "i.name = ", i.name)
                 if j.startswith(i.name):
