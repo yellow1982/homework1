@@ -1,6 +1,3 @@
-from pprint import pprint
-
-
 class Product:
     def __init__(self, name, weight, category):
         self.name = name
@@ -26,7 +23,9 @@ class Shop:
                 f.write(f'{i}\n')
                 f.close()
             for j in self.get_products().splitlines():
-                if j.startswith(i.name):
+                place_of_comma = j.find(",")
+                name_in_list = j[0: place_of_comma]
+                if i.name == name_in_list:
                     prod_in_list = True
                     print(f"Продукт {i.name} уже есть в магазине")
                     break
