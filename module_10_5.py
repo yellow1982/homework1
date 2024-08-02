@@ -2,20 +2,23 @@ import multiprocessing
 
 
 class WarehouseManager:
-    data = {}
+    def __init__(self):
+        self.data = multiprocessing.Manager().dict()
+
+
 
     def process_request(self, request):
         if request[1] == "receipt":
             self.data[request[0]] = request[2]
-            print(self.data)
+
         if request[1] == "shipment":
             for item in self.data.items():
                 if item[0] == request[0]:
                     self.data[item[0]] = item[1] - request[2]
-                    print(self.data)
+
 
     def run(self, requests):
-        with multiprocessing.Pool(processes=5) as pool:
+        with multiprocessing.Pool(processes=1) as pool:
             pool.map(self.process_request, requests)
 
 
