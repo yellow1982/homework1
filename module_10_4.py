@@ -13,7 +13,7 @@ class Cafe:
     def __init__(self, tables):
         self.tables = tables
         self.q = Queue()
-        self.list_of_customers = []
+
 
 
     def customer_arrival(self):
@@ -38,7 +38,7 @@ class Cafe:
                     self.serve_customer(customer)
                 else:
                     self.serve_customer(self.q.get())
-            sleep(0.1)
+            sleep(1)
             customer += 1
 
             if customer > max_customers:
