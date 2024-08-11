@@ -2,6 +2,9 @@ import unittest
 
 
 class RunnerTest(unittest.TestCase):
+    is_frozen = False
+
+    @unittest.skipIf(is_frozen, 'Тесты в этом кейсе заморожены')
     def test_walk(self):
         runner = Runner("Runner")
         i = 0
@@ -10,6 +13,7 @@ class RunnerTest(unittest.TestCase):
             i += 1
         self.assertEqual(runner.distance, 50)
 
+    @unittest.skipIf(is_frozen, 'Тесты в этом кейсе заморожены')
     def test_run(self):
         runner = Runner("Runner")
         i = 0
@@ -18,6 +22,7 @@ class RunnerTest(unittest.TestCase):
             i += 1
         self.assertEqual(runner.distance, 100)
 
+    @unittest.skipIf(is_frozen, 'Тесты в этом кейсе заморожены')
     def test_challenge(self):
         runner1 = Runner("Ranner1")
         runner2 = Runner("Ranner2")
@@ -42,5 +47,3 @@ class Runner:
 
     def __str__(self):
         return self.name
-
-
