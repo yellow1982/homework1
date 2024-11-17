@@ -29,7 +29,7 @@ def get_user(request: Request, user_id: int) -> HTMLResponse:
 
 @app.post("/user/{username}/{age}")
 def add_user(user: User, username: str, age: int):
-    user.id = max(users, key=lambda x: int(x.id)).id if users else 1
+    user.id = max(users, key=lambda x: int(x.id)).id + 1 if users else 1
     user.username = username
     user.age = age
     users.append(user)
