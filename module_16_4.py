@@ -1,5 +1,5 @@
-from typing import List
-from fastapi import FastAPI, HTTPException
+from typing import List, Annotated
+from fastapi import FastAPI, HTTPException, Path
 from pydantic import BaseModel
 
 app = FastAPI()
@@ -19,16 +19,20 @@ def get_all_users() -> List[User]:
 
 
 @app.post("/user/{username}/{age}")
-def add_user(user: User, username: str, age: int):
-    user.id = max(users, key=lambda x: int(x.id)).id + 1 if users else 1
-    user.username = username
-    user.age = age
+def add_user(username: Annotated[str, Path(min_length=5, max_length=20,
+                                           description="Enter username", example="UrbanUser")],
+             age: Annotated[int, Path(ge=18, le=120, description="Enter age", example=24)]):
+    user_id = max(users, key=lambda x: int(x.id)).id + 1 if users else 1
+    user = User(id=user_id, username=username, age=age)
     users.append(user)
     return user
 
 
 @app.put('/user/{user_id}/{username}/{age}')
-def update_user(user_id: int, username: str, age: int):
+def update_user(user_id: Annotated[int, Path(ge=1, le=100, description="Enter user ID", example=1)],
+                username: Annotated[str, Path(min_length=5, max_length=20,
+                                              description="Enter username", example="UrbanTest")],
+                age: Annotated[int, Path(ge=18, le=120, description="Enter age", example=50)]):
     for user in users:
         if user.id == user_id:
             user.username = username
@@ -38,7 +42,7 @@ def update_user(user_id: int, username: str, age: int):
 
 
 @app.delete('/user/{user_id}')
-def delete_user(user_id: int):
+def delete_user(user_id: Annotated[int, Path(ge=1, le=100, description="Enter user ID", example=1)]):
     for user in users:
         if user.id == user_id:
             deleted_user = user
